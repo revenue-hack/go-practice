@@ -1,3 +1,3 @@
 #!/bin/bash
-export GOPATH=${PWD}
+go run main.go 10
 
