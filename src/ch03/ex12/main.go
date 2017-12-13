@@ -2,27 +2,33 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"bytes"
 )
 
+type Byte []byte
+
 func main() {
-	fmt.Printf("%s\n", comma("djaljvoajkdfjdoadwjfdoidjw"))
+	fmt.Printf("%v\n", anagram("hlleo", "hello"))
 }
 
 func anagram(s1, s2 string) bool {
 	b1 := []byte(s1)
 	b2 := []byte(s2)
-	for _, v1 := range b1 {
-		var match = false
-		for i, v2 := range b2 {
-			if v1 == v2 {
-				b2 =
-				b2 = bytes.Join(b2[0:i-1], b2[i])
-				match = true
-				break
-			}
-		}
-		if
-	}
+	sort.Sort(Byte(b1))
+	sort.Sort(Byte(b2))
+	ans := bytes.Compare(b1, b2)
+	if ans == 0 { return true } else { return false }
+}
 
+func (b Byte) Swap(i, j int) {
+	b[i], b[j] = b[j], b[i]
+}
+
+func (b Byte) Less(i, j int) bool {
+	return b[i] < b[j]
+}
+
+func (b Byte) Len() int {
+	return len(b)
 }
