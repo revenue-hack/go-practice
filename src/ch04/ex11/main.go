@@ -11,11 +11,6 @@ func main() {
 	var issueIdFlag int
 	setFlag(&typeFlag, &titleFlag, &contentsFlag, &stateFlag, &issueIdFlag)
 
-	fmt.Printf("%v\n", typeFlag)
-	fmt.Printf("%v\n", titleFlag)
-	fmt.Printf("%v\n", contentsFlag)
-	fmt.Printf("%v\n", stateFlag)
-	fmt.Printf("%v\n", issueIdFlag)
 	switch (typeFlag) {
 	case "create":
 		create(titleFlag, contentsFlag)
