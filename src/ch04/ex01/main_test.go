@@ -1,8 +1,8 @@
 package main
 
 import (
-	"testing"
 	"crypto/sha256"
+	"testing"
 )
 
 func TestCompareSha256OfNormal(t *testing.T) {

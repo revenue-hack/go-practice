@@ -10,5 +10,3 @@ func gcd(a, b int) int {
 	}
 	gcd(b, a%b)
 }
-
-

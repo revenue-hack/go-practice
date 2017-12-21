@@ -19,16 +19,15 @@ type Issue struct {
 }
 
 type Credential struct {
-	user string
+	user     string
 	password string
 }
 
 type CreateIssue struct {
 	Title string `json:"title"`
-	Body string `json:"body"`
+	Body  string `json:"body"`
 }
 
 type CloseIssue struct {
 	State string `json:"state"`
 }
-

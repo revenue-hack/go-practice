@@ -7,16 +7,17 @@ import (
 	"net/http"
 	"strconv"
 )
+
 var (
 	width, height = 600, 320
-	colorCode = "00FFBF"
+	colorCode     = "00FFBF"
 )
 
 const (
-	cells = 100
+	cells   = 100
 	xyrange = 30.0
-	angle = math.Pi / 6
-	red = 0x00ff0000
+	angle   = math.Pi / 6
+	red     = 0x00ff0000
 )
 
 var sin30, cos30 = math.Sin(angle), math.Cos(angle)
@@ -94,7 +95,7 @@ func corner(i, j int) (float64, float64) {
 	widthF := float64(width)
 	heightF := float64(height)
 	sx := widthF/2 + (x-y)*cos30*widthF/2/xyrange
-	sy := heightF/2 + (x+y)*sin30*widthF/2/xyrange-z*heightF*0.4
+	sy := heightF/2 + (x+y)*sin30*widthF/2/xyrange - z*heightF*0.4
 	return sx, sy
 }
 

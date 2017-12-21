@@ -11,8 +11,8 @@ func main() {
 
 func unique(strs []string) []string {
 	var i int
-	for i != len(strs) - 1 {
-		if strs[i] == strs[i + 1] {
+	for i != len(strs)-1 {
+		if strs[i] == strs[i+1] {
 			strs = remove(strs, i)
 			i = 0
 			continue

@@ -1,11 +1,12 @@
 package main
 
-import(
+import (
+	"fmt"
 	"gopl.io/ch4/github"
 	"os"
-	"fmt"
 	"time"
 )
+
 func main() {
 	result, err := github.SearchIssues(os.Args[1:])
 	if err != nil {
@@ -47,4 +48,3 @@ func isLessThanOneMonth(compareTime time.Time) bool {
 func isLessThanOneYear(compareTime time.Time) bool {
 	return compareTime.After(time.Now().AddDate(-1, 0, 0))
 }
-

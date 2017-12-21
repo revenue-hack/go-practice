@@ -1,8 +1,8 @@
 package github
 
 import (
-	"github.com/joho/godotenv"
 	"fmt"
+	"github.com/joho/godotenv"
 	"os"
 )
 

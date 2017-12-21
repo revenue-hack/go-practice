@@ -16,22 +16,22 @@ func zip(strs string) {
 	spaceSize := utf8.EncodeRune(spaceBuf, ' ')
 	spaceBuf = spaceBuf[:spaceSize]
 	/*
-	strBytes := []byte(strs)
-	for i, byte := range strBytes {
-		strRune, _ := utf8.DecodeRune(byte)
-		if unicode.IsSpace(byte) {
+		strBytes := []byte(strs)
+		for i, byte := range strBytes {
+			strRune, _ := utf8.DecodeRune(byte)
+			if unicode.IsSpace(byte) {
+
+			}
 
 		}
+		for i, str := range strs {
+			// str is rune
+			if unicode.IsSpace(str) {
 
-	}
-	for i, str := range strs {
-		// str is rune
-		if unicode.IsSpace(str) {
+				copy(, spaceBuf)
 
-			copy(, spaceBuf)
-
+			}
 		}
-	}
-	return strs
+		return strs
 	*/
 }

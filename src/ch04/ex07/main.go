@@ -12,7 +12,7 @@ func main() {
 
 func reverse(bytes []byte) []byte {
 	variableMax := len(bytes) - 1
-	halfLength := len(bytes)/2
+	halfLength := len(bytes) / 2
 	for i, byte := range bytes {
 		bytes[i] = bytes[variableMax]
 		bytes[variableMax] = byte

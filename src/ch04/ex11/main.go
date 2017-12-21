@@ -1,9 +1,9 @@
 package main
 
-import(
-	"github.com/revenue-hack/go-practice/src/ch04/ex11/github"
-	"fmt"
+import (
 	"flag"
+	"fmt"
+	"github.com/revenue-hack/go-practice/src/ch04/ex11/github"
 )
 
 func main() {
@@ -11,7 +11,7 @@ func main() {
 	var issueIdFlag int
 	setFlag(&typeFlag, &titleFlag, &contentsFlag, &stateFlag, &issueIdFlag)
 
-	switch (typeFlag) {
+	switch typeFlag {
 	case "create":
 		create(titleFlag, contentsFlag)
 	case "update":
@@ -60,5 +60,3 @@ func setFlag(typeFlag, title, contents, state *string, issueId *int) {
 	flag.IntVar(issueId, "id", 1, "input issue id")
 	flag.Parse()
 }
-
-

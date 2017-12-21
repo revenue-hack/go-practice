@@ -1,8 +1,8 @@
 package github
 
 import (
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"strconv"
@@ -27,4 +27,3 @@ func Read(issueId int) Issue {
 	}
 	return issues
 }
-

@@ -1,9 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"sort"
-	"bytes"
 )
 
 type Byte []byte
@@ -18,7 +18,11 @@ func anagram(s1, s2 string) bool {
 	sort.Sort(Byte(b1))
 	sort.Sort(Byte(b2))
 	ans := bytes.Compare(b1, b2)
-	if ans == 0 { return true } else { return false }
+	if ans == 0 {
+		return true
+	} else {
+		return false
+	}
 }
 
 func (b Byte) Swap(i, j int) {

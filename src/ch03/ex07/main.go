@@ -39,16 +39,16 @@ func newton(z complex128) color.Color {
 	const threshoud = 0.0001
 
 	for n := uint8(0); n < iterations; n++ {
-		z = z - ((z*z*z*z-1)/(4*z*z*z))
+		z = z - ((z*z*z*z - 1) / (4 * z * z * z))
 		switch {
 		case cmplx.Abs(1-z) < threshoud:
-			return color.RGBA{255- contrast*n, 0,0, contrast*n}
+			return color.RGBA{255 - contrast*n, 0, 0, contrast * n}
 		case cmplx.Abs(-1-z) < threshoud:
-			return color.RGBA{0,255- contrast*n,0, contrast*n}
+			return color.RGBA{0, 255 - contrast*n, 0, contrast * n}
 		case cmplx.Abs(-1i-z) < threshoud:
-			return color.RGBA{0, 0,255- contrast*n, contrast*n}
+			return color.RGBA{0, 0, 255 - contrast*n, contrast * n}
 		case cmplx.Abs(1i-z) < threshoud:
-			return color.RGBA{128, 128,128, contrast*n}
+			return color.RGBA{128, 128, 128, contrast * n}
 		}
 	}
 	return color.Black

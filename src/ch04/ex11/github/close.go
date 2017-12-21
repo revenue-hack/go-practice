@@ -1,8 +1,8 @@
 package github
 
 import (
-	"encoding/json"
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"

@@ -1,8 +1,8 @@
 package github
 
 import (
-	"encoding/json"
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -27,4 +27,3 @@ func Update(issueId int, title, contents string) bool {
 	}
 	return true
 }
-

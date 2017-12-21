@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-const(
+const (
 	KiB = 1024
 	MiB = 1024 * 1024
 	GiB = MiB * 1024

@@ -1,9 +1,9 @@
 package github
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
-	"bytes"
 	"net/http"
 )
 
@@ -26,4 +26,3 @@ func Create(title, contents string) bool {
 	}
 	return true
 }
-

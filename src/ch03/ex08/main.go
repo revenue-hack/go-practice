@@ -4,15 +4,15 @@ import (
 	"image"
 	"image/color"
 	"image/png"
+	"math/big"
 	"math/cmplx"
 	"os"
-	"math/big"
 )
 
 func main() {
 	const (
 		xmin, ymin, xmax, ymax float64 = -2, -2, +2, +2
-		width, height          = 1024, 1024
+		width, height                  = 1024, 1024
 	)
 
 	img := image.NewRGBA(image.Rect(0, 0, width, height))
