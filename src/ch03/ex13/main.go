@@ -9,7 +9,7 @@ const (
 	TiB = GiB * 1024
 	PiB = TiB * 1024
 	ZiB = PiB * 1024
-	YiB = ZiB * 1024
+	YiB = ZiB * 1
 )
 
 func main() {
