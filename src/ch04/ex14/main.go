@@ -3,87 +3,82 @@ package main
 import (
 	"net/http"
 	"log"
-	"fmt"
-	"os"
-	"encoding/json"
-	"io"
+	"github.com/revenue-hack/go-practice/src/ch04/ex14/github"
 	"html/template"
 )
 
 func main() {
 	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/users", userHandler)
-	http.HandleFunc("/milestone", milestoneHandler)
 	log.Fatal(http.ListenAndServe("localhost:8888", nil))
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
+	requestTemplate().Execute(w, response())
 }
 
-func userHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	fmt.Printf("%v\n", r)
-	userTemplate().Execute(w, usersRequest())
+type Templates struct {
+	Users []*github.User
+	Bugs []*github.Bug
+	Milestones []*github.Milestone
 }
 
-const url = "https://api.github.com/users"
-
-type User struct {
-	Login string
-	Id int
-	Url string
-	HtmlUrl string `json:"html_url"`
+func response() Templates {
+	return Templates{
+		github.UsersRequest().Users,
+		github.BugReportRequest().Bugs,
+		github.MilestonesRequest().Milestones}
 }
 
-type UserList struct {
-	Users []*User
-}
-
-func usersRequest() UserList {
-	response, err := get(url)
-	defer response.Body.Close()
-	if err != nil {
-		fmt.Println("usersRequest response panic")
-		panic(err)
-	}
-	if response.StatusCode != http.StatusOK {
-		fmt.Println("read response status not 200")
-		os.Exit(1)
-	}
-	var userList UserList
-	if err := json.NewDecoder(response.Body).Decode(&(userList.Users)); err != nil {
-		fmt.Println("read response decode error")
-		panic(err)
-	}
-	return userList
-}
-
-func userTemplate() *template.Template {
-	return template.Must(template.New("userList").Parse(`
-		<h1>hogeho</h1>
-		{{range .Users}}
-		<h1>{{.Id}}</h1>
-		{{end}}
+func requestTemplate() *template.Template {
+	return template.Must(template.New("template").Parse(`
+		<h2>User List</h2>
+		<table border='1' width='80%'>
+			<tr>
+				<th>Login</th>
+				<th>Id</th>
+				<th>Url</th>
+			</tr>
+			{{range .Users}}
+			<tr>
+				<td>{{.Login}}</td>
+				<td>{{.Id}}</td>
+				<td>{{.Url}}</td>
+			</tr>
+			{{end}}
+		</table>
+		<h2>Milestone</h2>
+		<table border='1' width='80%'>
+			<tr>
+				<th>Number</th>
+				<th>Title</th>
+				<th>Description</th>
+			</tr>
+			{{range .Milestones}}
+			<tr>
+				<td>{{.Number}}</td>
+				<td>{{.Title}}</td>
+				<td>{{.Description}}</td>
+			</tr>
+			{{end}}
+		</table>
+		<h2>Bug Report</h2>
+		<table border='1' width='80%'>
+			<tr>
+				<th>Number</th>
+				<th>Title</th>
+				<th>Body</th>
+				<th>Url</th>
+			</tr>
+			{{range .Bugs}}
+			<tr>
+				<td>{{.Number}}</td>
+				<td>{{.Title}}</td>
+				<td>{{.Body}}</td>
+				<td>{{.Url}}</td>
+			</tr>
+			{{end}}
+		</table>
 	`))
-}
-
-
-func createRequest(method, url string, body io.Reader) *http.Request {
-	request, err := http.NewRequest(method, url, body)
-	if err != nil {
-		panic(err)
-	}
-	return request
-}
-
-func get(url string) (*http.Response, error) {
-	request := createRequest("GET", url, nil)
-	return http.DefaultClient.Do(request)
-}
-
-
-func milestoneHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
 
 }
