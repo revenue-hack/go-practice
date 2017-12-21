@@ -27,10 +27,10 @@ func main() {
 			bx, by := corner(i, j)
 			cx, cy := corner(i, j+0.1)
 			dx, dy := corner(i+0.1, j+0.1)
-			if isFinite(ax) && isFinite(ay) &&
-				isFinite(bx) && isFinite(by) &&
-				isFinite(cx) && isFinite(cy) &&
-				isFinite(dx) && isFinite(dy) {
+			if !isInf(ax, ay) &&
+				!isInf(bx, by) &&
+				!isInf(cx, cy) &&
+				!isInf(dx, dy) {
 				fmt.Printf("<polygon points='%g,%g %g,%g %g,%g %g,%g'/>\n",
 					ax, ay, bx, by, cx, cy, dx, dy)
 			}
@@ -39,9 +39,8 @@ func main() {
 	fmt.Println("</svg>")
 }
 
-
-func isFinite(f float64) bool {
-	return !math.IsInf(f, 0)
+func isInf(value1 float64, value2 float64) bool {
+	return math.IsInf(value1, 0) || math.IsInf(value2, 0)
 }
 
 func corner(i, j float64) (float64, float64) {
