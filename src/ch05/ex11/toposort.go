@@ -34,7 +34,6 @@ func main() {
 	for i, course := range ans {
 		fmt.Printf("%d:\t%s\n", i+1, course)
 	}
-	fmt.Printf("%v\n", isTopologicalOrdered(ans))
 }
 
 func topoSort(m map[string][]string) []string {
@@ -56,19 +55,4 @@ func topoSort(m map[string][]string) []string {
 	}
 	visitAll(keys)
 	return order
-}
-
-func isTopologicalOrdered(ts []string) error {
-	maps := make(map[string]int)
-	for i, course:= range ts {
-		maps[course] = i
-	}
-	for course, i := range maps {
-		for _, prereq := range prereqs[course] {
-			if i < maps[prereq] {
-				return fmt.Errorf("%s, %s cycle", course, prereq)
-			}
-		}
-	}
-	return nil
 }

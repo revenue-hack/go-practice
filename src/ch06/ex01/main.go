@@ -20,7 +20,6 @@ func main() {
 	x.Clear()
 	fmt.Printf("[CLEAR]\tx: %v\tstring: %v\n", x, x.String())
 
-
 }
 
 type IntSet struct {
