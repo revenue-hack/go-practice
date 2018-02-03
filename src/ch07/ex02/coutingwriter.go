@@ -1,8 +1,8 @@
 package main
 
 import (
-	"io"
 	"fmt"
+	"io"
 	"os"
 )
 
@@ -17,10 +17,9 @@ func main() {
 }
 
 type CWriter struct {
-	cw int64
+	cw   int64
 	cwIo io.Writer
 }
-
 
 func CountingWriter(w io.Writer) (io.Writer, *int64) {
 	var cw CWriter
