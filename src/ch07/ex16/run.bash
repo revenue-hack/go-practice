@@ -1,5 +1,6 @@
 #!/bin/bash
 go run main.go
-# 1 + x
-# 1 - x - y
+# http://localhost:8888/?expr=1*2*x&x=2000
+# http://localhost:8888/?expr=1/2*x&x=2000
+# http://localhost:8888/?expr=1-2%2Bx&x=200
 

@@ -18,7 +18,6 @@ func main() {
 			fmt.Println("scan error")
 		}
 		expression := stdin.Text()
-		fmt.Println(expression)
 		var err error
 		expr, err = eval.Parse(expression)
 		if err != nil {
