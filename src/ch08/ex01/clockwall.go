@@ -20,7 +20,6 @@ func main() {
 			conn, err := net.Dial("tcp", clock.connection)
 			if err != nil {
 				log.Fatal(err)
-				panic(err)
 			}
 			defer conn.Close()
 			reader := bufio.NewReader(conn)
@@ -29,12 +28,18 @@ func main() {
 				if err != nil {
 					return
 				}
-				ch <- fmt.Sprintf("%s: %v\n", clock.location, string(bytes))
+				ch <- fmt.Sprintf("%s: %v", clock.location, string(bytes))
 			}
 		}(clock)
 	}
 	for {
-		fmt.Println(<-ch)
+		if num := len(ch); num == 3 {
+			var str []string
+			for i := 0; i < num; i++ {
+				str = append(str, <-ch)
+			}
+			fmt.Println(strings.Join(str, " "))
+		}
 	}
 }
 

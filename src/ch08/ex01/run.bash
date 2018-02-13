@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ps aux|grep clock2|awk '{print $2}'|xargs kill
+# ps aux|grep clock2|awk '{print $2}'|xargs kill
 
 go build clock2.go
 go build clockwall.go
