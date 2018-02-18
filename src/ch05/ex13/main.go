@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"gopl.io/ch5/links"
 	"io"
 	"log"
 	"net/http"
@@ -10,6 +9,8 @@ import (
 	"os"
 	"path"
 	"strings"
+
+	"gopl.io/ch5/links"
 )
 
 func main() {
@@ -46,6 +47,8 @@ func breadthFirst(f func(item string) []string, worklist []string, domain *url.U
 }
 
 func isTarget(item string, domain *url.URL) bool {
+	fmt.Printf("%s\t%v\n", item, domain)
+	os.Exit(1)
 	parseUrl, err := url.Parse(item)
 	if err != nil {
 		panic(err)
