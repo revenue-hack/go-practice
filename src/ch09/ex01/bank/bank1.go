@@ -33,12 +33,13 @@ func teller() {
 
 type WithdrawType struct {
 	amount int
-	ch     chan bool
+	ch     chan<- bool
 }
 
 func Withdraw(amount int) bool {
 	ch := make(chan bool)
-	withdraw <- &WithdrawType{amount, ch}
+	var t = WithdrawType{amount, ch}
+	withdraw <- &t
 	return <-ch
 }
 
