@@ -1,15 +1,20 @@
 package popcount
 
 import (
-	"ch02/ex03/popcount"
 	"testing"
+
+	"github.com/revenue-hack/go-practice/src/ch09/ex02/popcount"
 )
 
 func TestPopCount(t *testing.T) {
-	if popcount.PopConut(10) != 2 {
-		t.Error("TestPopCount func popCount not 10")
-	}
-	if popcount.PopConutOld(10) != 2 {
-		t.Error("TestPopCount func popCountOld not 10")
+	ch := make(chan struct{}, 10)
+	for i := 0; i < 10; i++ {
+		ch <- struct{}{}
+		go func() {
+			if popcount.PopCount(10) != 2 {
+				t.Error("TestPopCount func popCount not 10")
+			}
+			<-ch
+		}()
 	}
 }
