@@ -47,7 +47,7 @@ func incomingURLs() <-chan string {
 }
 
 type M interface {
-	Get(key string) (interface{}, error)
+	Get(key string, done <-chan struct{}) (interface{}, error)
 }
 
 /*
@@ -60,7 +60,7 @@ func Sequential(t *testing.T, m M) {
 	//!+seq
 	for url := range incomingURLs() {
 		start := time.Now()
-		value, err := m.Get(url)
+		value, err := m.Get(url, nil)
 		if err != nil {
 			log.Print(err)
 			continue
@@ -85,7 +85,7 @@ func Concurrent(t *testing.T, m M) {
 		go func(url string) {
 			defer n.Done()
 			start := time.Now()
-			value, err := m.Get(url)
+			value, err := m.Get(url, nil)
 			if err != nil {
 				log.Print(err)
 				return
