@@ -29,13 +29,15 @@ func incomingURLs() <-chan string {
 	go func() {
 		for _, url := range []string{
 			"https://golang.org",
-			"https://godoc.org",
-			"https://play.golang.org",
-			"http://gopl.io",
-			"https://golang.org",
-			"https://godoc.org",
-			"https://play.golang.org",
-			"http://gopl.io",
+			/*
+				"https://godoc.org",
+				"https://play.golang.org",
+				"http://gopl.io",
+				"https://golang.org",
+				"https://godoc.org",
+				"https://play.golang.org",
+				"http://gopl.io",
+			*/
 		} {
 			ch <- url
 		}
@@ -94,4 +96,50 @@ func Concurrent(t *testing.T, m M) {
 	}
 	n.Wait()
 	//!-conc
+}
+
+func SequentialCancel(t *testing.T, m M) {
+	for url := range incomingURLs() {
+		start := time.Now()
+		done := make(chan struct{})
+		go func() {
+			time.Sleep(time.Second / 100)
+			close(done)
+		}()
+
+		value, err := m.Get(url, done)
+		if err != nil {
+			fmt.Printf("%s: %v\n", url, err)
+			continue
+		}
+
+		fmt.Printf("%s, %s, %d bytes\n",
+			url, time.Since(start), len(value.([]byte)))
+	}
+}
+
+func ConcurrentCancel(t *testing.T, m M) {
+	var n sync.WaitGroup
+	for url := range incomingURLs() {
+		n.Add(1)
+		go func(url string) {
+			defer n.Done()
+			start := time.Now()
+			done := make(chan struct{})
+			go func() {
+				time.Sleep(time.Second / 10)
+				close(done)
+			}()
+
+			value, err := m.Get(url, done)
+			if err != nil {
+				fmt.Printf("%s: %v\n", url, err)
+				return
+			}
+
+			fmt.Printf("%s, %s, %d bytes\n",
+				url, time.Since(start), len(value.([]byte)))
+		}(url)
+	}
+	n.Wait()
 }
