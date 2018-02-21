@@ -2,7 +2,6 @@ package memo
 
 import (
 	"errors"
-	"fmt"
 )
 
 type Func func(key string) (interface{}, error)
@@ -29,7 +28,6 @@ type Memo struct{ requests chan request }
 
 func New(f Func) *Memo {
 	memo := &Memo{requests: make(chan request)}
-	fmt.Println("new")
 	go memo.server(f)
 	return memo
 }
@@ -52,13 +50,10 @@ func (memo *Memo) Get(key string, done <-chan struct{}) (interface{}, error) {
 func (memo *Memo) Close() { close(memo.requests) }
 
 func (memo *Memo) server(f Func) {
-	fmt.Println("server start")
 	cache := make(map[string]*entry)
 	for req := range memo.requests {
-		fmt.Println("server for")
 		e := cache[req.key]
 		if e == nil {
-			fmt.Println("no cache")
 			e = &entry{ready: make(chan struct{})}
 			cache[req.key] = e
 			go e.call(f, req.key, req.done)
@@ -78,14 +73,11 @@ func (memo *Memo) server(f Func) {
 }
 
 func (e *entry) call(f Func, key string, done <-chan struct{}) {
-	fmt.Println("call")
 	e.res.value, e.res.err = f(key)
 	close(e.ready)
 }
 
 func (e *entry) deliver(response chan<- result) {
-	fmt.Println("deliver")
 	<-e.ready
-	fmt.Println("deliver response")
 	response <- e.res
 }
