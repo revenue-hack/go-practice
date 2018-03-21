@@ -5,7 +5,7 @@ import (
 	"io"
 	"os"
 
-	"ch10/ex02/unarchive"
+	"github.com/revenue-hack/go-practice/src/ch10/ex02/unarchive"
 )
 
 const tarHeader = "ustar"
