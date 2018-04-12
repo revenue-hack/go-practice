@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"archive/zip"
-	"ch10/ex02/unarchive"
+	"github.com/revenue-hack/go-practice/src/ch10/ex02/unarchive"
 )
 
 const zipHeader = "PK\003\004"

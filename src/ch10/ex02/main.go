@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 
-	"ch10/ex02/unarchive"
-	_ "ch10/ex02/unarchive/tar"
-	_ "ch10/ex02/unarchive/zip"
+	"github.com/revenue-hack/go-practice/src/ch10/ex02/unarchive"
+	_ "github.com/revenue-hack/go-practice/src/ch10/ex02/unarchive/tar"
+	_ "github.com/revenue-hack/go-practice/src/ch10/ex02/unarchive/zip"
 )
 
 func main() {
