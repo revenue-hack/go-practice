@@ -1,16 +1,23 @@
 package main
 
 import (
-	"ch12/ex11/params"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/revenue-hack/go-practice/src/ch12/ex12/params"
 )
 
 type Data struct {
 	Labels     []string `http:"l"`
 	MaxResults int      `http:"max"`
 	Exact      bool     `http:"x"`
+}
+
+type ExData struct {
+	Mail   string `http:"mail"`
+	Credit string `http:"credit"`
+	Zip    string `http:"zip"`
 }
 
 type NoTagData struct {

@@ -1,10 +1,11 @@
 package main
 
 import (
-	"ch12/ex11/params"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/revenue-hack/go-practice/src/ch12/ex11/params"
 )
 
 type Data struct {

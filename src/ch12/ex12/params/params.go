@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"reflect"
 	"strconv"
-	"strings"
 )
 
 func Unpack(req *http.Request, ptr interface{}) error {
@@ -16,12 +15,9 @@ func Unpack(req *http.Request, ptr interface{}) error {
 	fields := make(map[string]reflect.Value)
 	v := reflect.ValueOf(ptr).Elem()
 	for i := 0; i < v.NumField(); i++ {
-		fieldInfo := v.Type().Field(i)
-		tag := fieldInfo.Tag
+		fieldType := v.Type().Field(i)
+		tag := fieldType.Tag
 		name := tag.Get("http")
-		if name == "" {
-			name = strings.ToLower(fieldInfo.Name)
-		}
 		fields[name] = v.Field(i)
 	}
 
@@ -31,6 +27,9 @@ func Unpack(req *http.Request, ptr interface{}) error {
 			continue
 		}
 		for _, value := range values {
+			if isValidateError(value, name) {
+				return fmt.Errorf("validate error %s %s\n", name, value)
+			}
 			if f.Kind() == reflect.Slice {
 				elem := reflect.New(f.Type().Elem()).Elem()
 				if err := populate(elem, value); err != nil {
