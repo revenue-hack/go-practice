@@ -9,7 +9,7 @@ import (
 func TestEncode(t *testing.T) {
 	jsonBytes, err := Marshal(strangelove)
 	if err != nil {
-		t.Error("json encode error")
+		t.Error("json marshal error")
 	}
 	var movie Movie
 	if err := json.Unmarshal(jsonBytes, &movie); err != nil {
